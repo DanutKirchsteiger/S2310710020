@@ -1,0 +1,68 @@
+__doc__ = "sample file for a main methode"
+
+#import system libs
+import argparse
+
+#required imports
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.constants as syc
+
+#============================================================
+# Berechnet und plottet die Bremsparameter eines Fahrzeugs
+# param in: mass (int), velocity (float), friction(float)
+#============================================================
+def calculate_and_plot(mass, velocity, friction): 
+    # Berechnung der Zeit bis zum Stillstand des Fahrzeugs
+    stop_time = velocity / (friction * syc.g)
+    # Zeitwerte von 0 Sekunden bis zum Stillstand des Fahrzeugs definieren in 0.1 Schritte
+    time = np.arange(0.0, stop_time, 0.1)
+    # Berechnung der Brenmsgeschwindigkeit zum Zeitpunkt time
+    actual_velocity = velocity - (friction * syc.g) * time
+    # Berechnung des Weges zum Zeitpunkt time
+    actual_distance = velocity * time - (friction*syc.g * time ** 2) / 2
+    
+    # Erstellen von zwei Subplots
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
+
+    # Aktuelle Geschwindigkeit im ersten Subplot plotten
+    ax1.plot(time, actual_velocity, color ="blue", lw = 1)
+    # Aktueller Weg im zweiten Subplot plotten
+    ax2.plot(time, actual_distance, color ="red", lw = 1)
+
+    ax1.set_xlabel("time [s]")
+    ax1.set_ylabel("Velocity [m/s]")
+    ax2.set_xlabel("time [s]")
+    ax2.set_ylabel("Distance [m]")
+    
+    # Gitter für beide Plots hinzufügen
+    for ax in [ax1, ax2]:
+        ax.grid(True)
+
+    # Hinzufügen eines Plot Labels
+    fig.suptitle("Coding Assingment S2310710020", fontweight ="bold")
+    # Plot als PDF abspeichern
+    plt.savefig('S2310710020.pdf')
+    # Anzeigen des Plots
+    plt.show()
+
+#============================================================
+# Hauptfunktion zum Parsen von Argumenten und Aufrufen der Berechnungsfunktion
+#============================================================
+def main(): 
+    parser = argparse.ArgumentParser(description='Berechnet und plottet Bremsverhalten.')
+    parser.add_argument('mass', type=int, help='Masse des Fahrzeugs in kg')
+    parser.add_argument('velocity', type=float, help='Geschwindigkeit des Fahrzeugs in m/s')
+    parser.add_argument('friction', type=float, default=0.65, help='Reibungskoeffizient')
+    args = parser.parse_args()
+
+    # Aufruf der Funktion calculate_and_plot
+    calculate_and_plot(args.mass, args.velocity, args.friction)
+  
+# Aufruf der Funktion main
+main()
+
+
+
+
+  
