@@ -1,4 +1,4 @@
-__doc__ = "sample file for a main methode"
+__doc__ =  "File berechnet und plottet die Bremsparameter eines Fahrzeugs"
 
 #import system libs
 import argparse
