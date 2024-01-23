@@ -12,7 +12,8 @@ import scipy.constants as syc
 # Berechnet und plottet die Bremsparameter eines Fahrzeugs
 # param in: mass (int), velocity (float), friction(float)
 #============================================================
-def calculate_and_plot(mass, velocity, friction): 
+def calculate_and_plot(mass: any, velocity: any, friction: any):
+    """Berechnet und plottet die Bremsparameter eines Fahrzeugs"""
     # Berechnung der Zeit bis zum Stillstand des Fahrzeugs
     stop_time = velocity / (friction * syc.g)
     # Zeitwerte von 0 Sekunden bis zum Stillstand des Fahrzeugs definieren in 0.1 Schritte
@@ -21,7 +22,7 @@ def calculate_and_plot(mass, velocity, friction):
     actual_velocity = velocity - (friction * syc.g) * time
     # Berechnung des Weges zum Zeitpunkt time
     actual_distance = velocity * time - (friction*syc.g * time ** 2) / 2
-    
+
     # Erstellen von zwei Subplots
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
 
@@ -34,7 +35,7 @@ def calculate_and_plot(mass, velocity, friction):
     ax1.set_ylabel("Velocity [m/s]")
     ax2.set_xlabel("time [s]")
     ax2.set_ylabel("Distance [m]")
-    
+
     # Gitter für beide Plots hinzufügen
     for ax in [ax1, ax2]:
         ax.grid(True)
@@ -49,7 +50,8 @@ def calculate_and_plot(mass, velocity, friction):
 #============================================================
 # Hauptfunktion zum Parsen von Argumenten und Aufrufen der Berechnungsfunktion
 #============================================================
-def main(): 
+def main():
+    """Hauptfunktion zum Parsen von Argumenten und Aufrufen der Berechnungsfunktion"""
     parser = argparse.ArgumentParser(description='Berechnet und plottet Bremsverhalten.')
     parser.add_argument('mass', type=int, help='Masse des Fahrzeugs in kg')
     parser.add_argument('velocity', type=float, help='Geschwindigkeit des Fahrzeugs in m/s')
@@ -58,11 +60,6 @@ def main():
 
     # Aufruf der Funktion calculate_and_plot
     calculate_and_plot(args.mass, args.velocity, args.friction)
-  
+
 # Aufruf der Funktion main
 main()
-
-
-
-
-  
